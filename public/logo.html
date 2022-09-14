@@ -1,0 +1,45 @@
+<body style="overflow:hidden; user-select: none">
+<div class='cont'>
+    <div class='logo top'>WASTE</div>
+    <div class='logo bottom'>WORLD</div>
+    <div class='block'></div>
+</div>
+</body>
+<style>
+    *
+    {
+        font-family: Roboto
+    }
+    .cont
+    {
+
+        text-align: center
+
+    }
+    .logo
+    {
+        font-size: 70px;
+        line-height: 70px;
+        height: 60px;
+    }
+    .top
+    {
+        transform: skew(-30deg);
+        transform-origin: 0 100%;
+    }
+    .bottom
+    {
+        transform: skew(30deg);
+        transform-origin: 0 0;
+    }
+    .block
+    {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        background: black;
+        transform:  scaleX(.7) rotate(45deg) ;
+        left: calc(50% + 110px);
+        top: 35px;
+    }
+</style>

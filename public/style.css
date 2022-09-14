@@ -1,0 +1,603 @@
+/*
+
+Block size is 100px
+ */
+@font-face {
+    font-family: emoji;
+    src: url(https://xem.github.io/unicode13/Twemoji.ttf)
+}*
+{
+    font-family: Roboto;
+}
+body
+{
+    overflow: hidden;
+}
+#camera
+{
+    --x: 0;
+    --y: 100px;
+    --z: 0;
+    --X: 0;
+    --Y: 0;
+    --perspective: 700px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    perspective: var(--perspective);
+    overflow: hidden;
+    z-index: 500;
+    background: #52e3f1;
+    filter: sepia(.4);
+    transition: 4s filter;
+}
+#scene
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--X)) rotateY(var(--Y)) translate3D(var(--x), var(--y), var(--z)) translateZ(var(--perspective));
+    transform-origin: 50% 50% var(--perspective);
+}
+#menu, #worlds
+{
+    z-index: 15000;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+.container
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+}
+.face2
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin:  0 0;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    /*box-sizing: border-box;
+    border: 1px solid;*/
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    //background-color: rgba(255, 0, 0, 0.48);
+
+}
+.sand
+{
+    background-image: url(sand.png);
+}
+#crosshair
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 10px;
+    height: 10px;
+    backdrop-filter: invert();
+    border-radius: 50%;
+    z-index: 1000;
+}
+.playerSide
+{
+    width: 60px;
+    height: 140px;
+    transform-origin: 50% 100%;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    filter: drop-shadow( 0 0 2px black);
+    background: black;
+}
+.playerSide:after
+{
+    content: '';
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    clip-path: inherit;
+    background: var(--bg);
+    transform: translateY(1px) scale(.98);
+    background-size: 100% 100%;
+    top: 0;
+    left: 0;
+}
+.playerFace
+{
+    background: var(--skin);
+    background-size: 100% 100%;
+}
+.playerFace:after
+{
+    background-size: 100% 100%;
+}
+.playerFace:nth-child(3):after
+{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    clip-path: polygon(10% 26%, 27% 26%, 27% 10%, 10% 10%, 10% 68%, 38% 76%, 67% 77%, 91% 69%, 91% 26%, 74% 26%, 74% 10%, 91% 10%, 91% 79%, 67% 87%, 38% 86%, 11% 79%, 10% 68%);
+    background: black;
+    transform: scale(.9);
+    animation: blink 5s linear infinite;
+
+
+    top: 5px;
+    left: 0;
+}
+.playerFace:nth-child(2):before, .playerFace:nth-child(4):before
+{
+    content: '';
+    width: 48.5px;
+    height: 48.5px;
+    position: absolute;
+    background: var(--hair);
+    top: 0;
+    left: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 10px, 0 100%);
+}
+.playerFace:nth-child(1), .playerFace:nth-child(5)
+{
+    background: var(--hair);
+}
+.playerFace:nth-child(4):before
+{
+    transform: scaleX(-1);
+}
+.playerFace:nth-child(3):before
+{
+    content: '';
+    width: 48.5px;
+    height: 10px;
+    position: absolute;
+    background: var(--hair);
+    top: 0;
+    left: 0;
+}
+@keyframes blink {
+    44%, 46%
+    {
+        clip-path: polygon(10% 26%, 27% 26%, 27% 10%, 10% 10%, 10% 68%, 38% 76%, 67% 77%, 91% 69%, 91% 26%, 74% 26%, 74% 10%, 91% 10%, 91% 79%, 67% 87%, 38% 86%, 11% 79%, 10% 68%);
+    }
+    45%
+    {
+        clip-path: polygon(10% 20%, 27% 20%, 27% 20%, 10% 20%, 10% 68%, 38% 76%, 67% 77%, 91% 69%, 91% 20%, 74% 20%, 74% 20%, 91% 20%, 91% 79%, 67% 87%, 38% 86%, 11% 79%, 10% 68%);
+    }
+}
+
+#preview
+{
+    position: absolute;
+    top: 250px;
+    left: 52%;
+    width: 200px;
+    height: 200px;
+    background: white;
+
+    perspective: 800px;
+    /*margin-left: 200px;*/
+    display: inline-block;
+    /*-margin-top: 40px;-*/
+}
+#buttons
+{
+    position: absolute;
+    top: 250px;
+    right: 52%;
+    width: 200px;
+    height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*argin-top: 40px;*/
+}
+
+#preview > div
+{
+    transform: translateY(80px) rotateY(180deg);
+}
+.cColor
+{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+}
+#color1
+{
+    left: 10px;
+    top: 75px;
+}
+#color2
+{
+    left: 10px;
+    top: 120px;
+}
+#skinTypes
+{
+    position: absolute;
+    top: 110%;
+    transform: none !important;
+    text-align: center;
+    width: 100%;
+}
+#skinTypes button
+{
+    width: 30px;
+    height: 30px;
+}
+#hair
+{
+    right: 10px;
+    top: 10px
+}
+#skin
+{
+    right: 10px;
+    top: 60px
+}
+#name
+{
+    position: absolute;
+    width: 200px;
+    top: -30px;
+    left: 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+#buttons button
+{
+    font-size: 1.5rem;
+    height: 100px;
+    box-sizing: border-box;
+}
+#chatField
+{
+    border: none;
+    background: none;
+    outline: none;
+    position: absolute;
+    box-sizing: border-box;
+    height: 40px;
+    bottom: 0;
+    left: 0;
+    z-index: 800;
+    font-size: 1.4rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    width: 100%;
+}
+#chatlog
+{
+    width: 500px;
+    height: 300px;
+    /*background: rgba(0, 0, 0, 0.3);*/
+    filter: drop-shadow(0 0 2px black);
+    z-index: 800;
+    bottom: 40px;
+    left: 0;
+    position: absolute;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+    opacity: 0;
+}
+#chatlog::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
+#chatlog .msg
+{
+    font-size: 1.4rem;
+    color: white
+}
+.msg .name
+{
+    background-size: 100% 100% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+#pause
+{
+    z-index: 2000;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding-top:150px;
+    color: white;
+    font-size: 2rem;
+    text-shadow: black 2px 2px;
+}
+#pause button
+{
+    font-size: 3rem;
+}
+#worldList
+{
+    position: relative;
+    width: 400px;
+    height: 300px;
+    border: 1px solid;
+    overflow-y: scroll;
+    display: inline-block;
+    background: lightgray;
+}
+#worldList .elem, #worldList .delete
+{
+    font-size: 20px;
+    height: 30px;
+    width: 90%;
+    box-sizing: border-box;
+    text-align: left;
+    position: relative;
+    margin: 0;
+}
+#worldList .delete
+{
+    width: 9%;
+    transform: translateY(3px);
+}
+#worldList .server
+{
+    width: 100%;
+    margin-top: 4px;
+}
+#worldList .server .code
+{
+    position: absolute;
+    right: 5px;
+    top: 0;
+    height: 100%;
+
+}
+#worlds input, #worlds button, #worlds label
+{
+    font-size: 1.5rem;
+}
+#butJoin input
+{
+    width: 7rem;
+    text-align: center;
+}
+#worlds label
+{
+    user-select: none;
+}
+input[type='checkbox']
+{
+    transform: scale(1.1);
+}
+
+#currentBlock
+{
+    --dir: 1;
+    position: absolute;
+    transform-style: preserve-3d;
+    top: 50px;
+    right: 50px;
+    width: 100px;
+    height: 100px;
+    --img: url(textures/cobblestone.png);
+    transform: scale(.6) rotateX(calc(var(--dir) * -30deg)) rotateY(calc(var(--dir) * -45deg));
+    z-index: 2000;
+}
+#itemCount
+{
+    position: absolute;
+    font-size: 40px;
+    color: white;
+    top: 110px;
+    right: 45px;
+    text-shadow: black 2px 2px;
+    z-index: 2100;
+}
+.previewFace
+{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: calc(50% - 50px);
+    background-size: 100px 100px;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    background-image: var(--img2);
+}
+.previewFace:nth-child(3)
+{
+    background-image: var(--img);
+}
+#rad
+{
+    position: absolute;
+    z-index: 3000;
+}
+.maskSide
+{
+    width: 30px;
+    height: 20px;
+    box-sizing: border-box;
+    background: #151515;
+    border: 2px solid;
+    transform-origin: 50% 50%;
+}
+.maskFront
+{
+    width: 30px;
+    height: 27px;
+    background: #151515;
+    border: 2px solid;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform: translateZ(-9px);
+}
+.maskFilter
+{
+    width: 30px;
+    height: 27px;
+    background:  #151515;
+    clip-path: polygon(30% 0, 30% 70%, 0 70%, 0 100%, 100% 100%, 100% 70%, 70% 70%, 70% 0);
+    transform-origin: 50% 50%;
+}
+#hp
+{
+    --color: #ff4d4d;
+    --text: 'HP';
+    --progress: 100%;
+    bottom: 50px;
+}
+#mask
+{
+    --color: #9dff6b;
+    --text: 'MASK';
+    --progress: 100%;
+    bottom: 80px;
+}
+.statusbar
+{
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    width: 200px;
+    height: 15px;
+    border: 2px solid var(--color);
+    border-top: none;
+    z-index: 3000;
+    background: linear-gradient(90deg, var(--color) var(--progress), transparent var(--progress));
+    filter: drop-shadow(1px 1px 1px);
+}
+.statusbar:before
+{
+    content: var(--text);
+    color: var(--color);
+    position: absolute;
+    //text-shadow: 1px 1px black;
+    right: 105%
+}
+
+#give
+{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 54%;
+    z-index: 3000;
+    left: 0;
+   color: white;
+    text-shadow: black 1px 1px;
+}
+#inv
+{
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    background: rgba(148, 134, 131, 0.5);
+    backdrop-filter: blur(20px);
+    border: 2px ridge gray;
+    /box-shadow: rgba(0, 0, 0, 0.5) 5px 5px 10px;
+    z-index: 3000;
+    box-sizing: border-box;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+}
+.invBut
+{
+    font-size: 25px;
+    width: 40px;
+    text-align: center;
+    margin-left: 5px;
+}
+.invBut:first-child
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.itemList
+{
+    position: absolute;
+    height: 370px;
+    width: 300px;
+    border: 1px solid;
+    top: 20px;
+    left: 50px;
+    overflow-y: scroll;
+}
+.reqs, .desc
+{
+    position: absolute;
+    height: 150px;
+    width: 210px;
+    //border: 1px solid;
+    top: 20px;
+    left: 370px;
+}
+.desc
+{
+    top: 180px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.itemList .item
+{
+    position: relative;
+    width: calc(100% - 10px);
+    height: 50px;
+    line-height: 46px;
+    font-size: 25px;
+    margin: 3px;
+    text-align: left;
+    /background: rgba(255, 255, 255, 0.44);
+}
+.itemList .item img
+{
+    position: absolute;
+    width: 44px;
+    right: 1px;
+    top: 1px
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+.reqelem
+{
+    width: 40px;
+    padding-top: 40px;
+    background-size: 40px 40px;
+    background-position: top;
+    background-repeat: no-repeat;
+    display: inline-block;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    margin: 5px;
+}
+.waypoint
+{
+    --c: blue;
+    height: 10000px;
+    width: 200px;
+    background: white;
+    box-shadow: var(--c) 0 0 50px;
+    transform: translateY(-50%);
+}
+h2
+{
+    margin: 5px;
+    text-align: center;
+}
+.block2D
+{
+    --rot: 0;
+    width: 100px;
+    height: 100px;
+    transform-origin: 50% 0;
+}
